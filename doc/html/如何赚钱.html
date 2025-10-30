@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年A股牛市赚钱策略指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#f59e0b',
+                        accent: '#10b981',
+                        neutral: '#6b7280',
+                        'bull-market': '#10b981',
+                        'tech-color': '#8b5cf6',
+                        'finance-color': '#3b82f6',
+                        'consumer-color': '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'bounce-subtle': 'bounceSubtle 2s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .gradient-text {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .glass-effect {
+                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.1);
+            }
+            .chart-container {
+                position: relative;
+                height: 400px;
+                width: 100%;
+            }
+        }
+    </style>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .table-row-hover:hover {
+            background-color: #f8fafc;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+            height: 1px;
+            margin: 2rem 0;
+        }
+        .bull-market-indicator {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="bull-market-indicator animate-bounce-subtle">
+                        <i class="fas fa-bullseye"></i>
+                        <span>牛市投资指南</span>
+                    </div>
+                </div>
+                <div class="text-sm text-neutral">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    2025年9月29日
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center animate-slide-up">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    2025年A股牛市赚钱策略指南
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+                    把握科技+红利双主线，实现资产稳健增值
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-chart-line mr-2"></i>核心+卫星策略
+                    </span>
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-cogs mr-2"></i>行业轮动规律
+                    </span>
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-shield-alt mr-2"></i>风险控制方法
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core观点 Summary -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                    <i class="fas fa-star text-secondary mr-3"></i>核心观点摘要
+                </h2>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg border border-blue-100">
+                    <div class="prose max-w-none text-gray-700 leading-relaxed">
+                        <p class="text-lg mb-4">
+                            当前A股市场正处于新一轮牛市行情中，自2024年9月24日政策组合拳以来，上证指数累计上涨近四成，深证成指上涨逾六成，创业板指、科创50指数、北证50指数均已翻倍。本轮牛市呈现"科技+红利"双主线并行的"哑铃型结构"特征，AI产业链为核心驱动力，同时高股息红利股展现出良好防御价值。
+                        </p>
+                        <p class="text-lg mb-4">
+                            要在本轮牛市中实现资产增值，投资者应把握"小盘股、硬核科技与科创产品"三大投资原则，采用"核心+卫星"配置策略，在不同阶段灵活调整仓位，精选优质个股，严格控制风险。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Overview -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-chart-bar text-primary mr-3"></i>当前牛市特征与投资环境
+            </h2>
+            
+            <!-- Market Performance Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">上证指数</p>
+                            <p class="text-2xl font-bold text-bull-market">+40%</p>
+                        </div>
+                        <i class="fas fa-arrow-up text-2xl text-bull-market"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover border-l-4 border-green-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">深证成指</p>
+                            <p class="text-2xl font-bold text-bull-market">+60%</p>
+                        </div>
+                        <i class="fas fa-arrow-up text-2xl text-bull-market"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover border-l-4 border-purple-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">创业板指</p>
+                            <p class="text-2xl font-bold text-bull-market">+100%</p>
+                        </div>
+                        <i class="fas fa-arrow-up text-2xl text-bull-market"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover border-l-4 border-orange-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">两融余额</p>
+                            <p class="text-2xl font-bold text-bull-market">+70%</p>
+                        </div>
+                        <i class="fas fa-arrow-up text-2xl text-bull-market"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unique Features -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">本轮牛市独特特征</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-purple-500 to-pink-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-microchip text-white text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">科技底色浓厚</h4>
+                        <p class="text-gray-600 text-sm">AI、创新药、人形机器人等新兴产业表现突出</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-blue-500 to-cyan-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-sync-alt text-white text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">行业轮动快速</h4>
+                        <p class="text-gray-600 text-sm">板块表现分化明显，轮动加快</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-green-500 to-teal-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-coins text-white text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">资产荒环境</h4>
+                        <p class="text-gray-600 text-sm">低利率环境下红利主题受捧</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-orange-500 to-red-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exchange-alt text-white text-3xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">ETF影响力增强</h4>
+                        <p class="text-gray-600 text-sm">ETF规模突破5万亿，影响加大</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Strategies -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-lightbulb text-secondary mr-3"></i>牛市赚钱的核心策略
+            </h2>
+
+            <!-- Core + Satellite Strategy -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 mb-12 border border-blue-100">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">"核心+卫星"配置策略</h3>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Core Position -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-shield-alt text-blue-500 mr-2"></i>核心仓位（60-70%）
+                        </h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">高股息红利股</span>
+                                    <p class="text-gray-600 text-sm">如中国神华、华能国际等，提供稳定现金流</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">优质蓝筹股</span>
+                                    <p class="text-gray-600 text-sm">选择业绩稳定、估值合理的行业龙头</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">宽基指数ETF</span>
+                                    <p class="text-gray-600 text-sm">如沪深300ETF、中证500ETF等，分散风险</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Satellite Position -->
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-rocket text-purple-500 mr-2"></i>卫星仓位（30-40%）
+                        </h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">科技成长股</span>
+                                    <p class="text-gray-600 text-sm">重点关注AI、半导体、机器人等新兴产业龙头</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">行业主题ETF</span>
+                                    <p class="text-gray-600 text-sm">如科创200ETF、半导体ETF、AIETF等</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mr-3 mt-1"></i>
+                                <div>
+                                    <span class="font-medium">小盘成长股</span>
+                                    <p class="text-gray-600 text-sm">关注科创200等小盘指数成分股，弹性更大</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dumbbell Strategy -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">"哑铃策略"在当前市场的应用</h3>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Offensive -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-bullseye text-purple-500 mr-2"></i>进攻端：科技成长赛道
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-bullseye text-purple-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">AI产业链</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-microchip text-purple-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">半导体</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-robot text-purple-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">机器人</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-pills text-purple-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">创新药</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Defensive -->
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-shield-alt text-blue-500 mr-2"></i>防守端：高分红红利主题
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-fire text-blue-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">能源板块</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-bolt text-blue-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">公用事业</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-apple-alt text-blue-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">消费龙头</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                                <i class="fas fa-percentage text-blue-500 w-8 text-center mr-3"></i>
+                                <span class="font-medium">高股息ETF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sector Rotation -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-sync-alt text-primary mr-3"></i>把握牛市行业轮动机会
+            </h2>
+
+            <!-- Rotation Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+                <h3 class="text-xl font-semibold mb-6 text-gray-800">牛市行业轮动规律</h3>
+                <div class="chart-container">
+                    <canvas id="rotationChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Rotation Stages -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+                        <h4 class="font-bold text-gray-800">第一阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-building text-3xl text-blue-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">券商银行启动</p>
+                        <p class="text-gray-600 text-sm">拉指数，市场热度开始升温</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+                        <h4 class="font-bold text-gray-800">第二阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-industry text-3xl text-green-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">周期股快速拉升</p>
+                        <p class="text-gray-600 text-sm">有色、钢铁、煤炭、电力、军工等</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+                        <h4 class="font-bold text-gray-800">第三阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-microchip text-3xl text-purple-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">科技题材全面发力</p>
+                        <p class="text-gray-600 text-sm">成为主线，科技龙头不断刷新高点</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">4</div>
+                        <h4 class="font-bold text-gray-800">第四阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-shopping-cart text-3xl text-orange-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">低位补涨</p>
+                        <p class="text-gray-600 text-sm">大消费（食品饮料、白酒、家电等）</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">5</div>
+                        <h4 class="font-bold text-gray-800">第五阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-exclamation-triangle text-3xl text-red-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">低价股小盘股狂欢</p>
+                        <p class="text-gray-600 text-sm">牛市进入尾声，鸡犬升天</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <div class="bg-yellow-500 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800">当前阶段</h4>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-arrows-alt-h text-3xl text-yellow-500 mb-3"></i>
+                        <p class="font-medium text-gray-800 mb-2">第二至第三阶段过渡期</p>
+                        <p class="text-gray-600 text-sm">周期股表现，科技股崛起</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4 Allocation -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">四季度配置方向</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+                        <i class="fas fa-bullseye text-3xl text-purple-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">人工智能(AI)</h4>
+                        <p class="text-gray-600 text-sm">政策红利持续，算力基建高景气</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                        <i class="fas fa-building-columns text-3xl text-blue-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">券商</h4>
+                        <p class="text-gray-600 text-sm">牛市受益最直接，经纪/自营业务弹性</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl border border-yellow-100">
+                        <i class="fas fa-gem text-3xl text-yellow-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">有色金属</h4>
+                        <p class="text-gray-600 text-sm">美联储降息利好，战略金属受催化</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border border-green-100">
+                        <i class="fas fa-shopping-bag text-3xl text-green-500 mb-3"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">大消费</h4>
+                        <p class="text-gray-600 text-sm">政策刺激+结构性机会+旺季布局</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stock Selection -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-search text-primary mr-3"></i>实用选股方法与技巧
+            </h2>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Fundamental Analysis -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>基本面选股法
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">核心财务指标</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• ROE持续在15%以上</li>
+                                <li>• 营收和净利润连续3年两位数增长</li>
+                                <li>• 经营现金流净额与净利润比率>1</li>
+                                <li>• PE、PB处于历史低位或合理区间</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">行业地位分析</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• 优先选择行业内市场份额前三的龙头</li>
+                                <li>• 关注具有核心技术、品牌优势的公司</li>
+                                <li>• 选择具有较高进入壁垒的企业</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Analysis -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-chart-bar text-blue-500 mr-2"></i>技术面选股法
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">关键技术形态</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• 放量突破年线、前期高点</li>
+                                <li>• 缩量回调至重要支撑位</li>
+                                <li>• N字战法：涨停+十字星+回踩10日线</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">量价关系分析</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• 量价齐升：股价上涨时成交量放大</li>
+                                <li>• 缩量回调：回调时成交量萎缩</li>
+                                <li>• 换手率适中（3%-10%）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thematic Investment -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-bullseye text-purple-500 mr-2"></i>主题投资策略
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">政策主题</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• 人工智能+：国务院"人工智能+"行动</li>
+                                <li>• 反内卷政策：产能优化、集中度提升</li>
+                                <li>• 国产替代：半导体、软件等进口替代</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">产业趋势</h4>
+                            <ul class="space-y-1 text-sm text-gray-700">
+                                <li>• 技术创新：AI、机器人、创新药</li>
+                                <li>• 消费升级：无糖茶饮、宠物经济</li>
+                                <li>• 绿色转型：新能源、节能环保</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Management -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-shield-alt text-primary mr-3"></i>风险控制与仓位管理
+            </h2>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Risk Identification -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>牛市中的风险识别
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">市场风险</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-start p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-chart-line text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800">估值风险</p>
+                                        <p class="text-gray-600 text-sm">避免追高估值过高的股票</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-money-bill-wave text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800">流动性风险</p>
+                                        <p class="text-gray-600 text-sm">警惕市场流动性突然收紧</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-globe text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800">外部冲击</p>
+                                        <p class="text-gray-600 text-sm">关注美联储政策、地缘政治等影响</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">个股风险</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-start p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-arrow-down text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800">业绩变脸</p>
+                                        <p class="text-gray-600 text-sm">避免投资业绩不稳定的公司</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start p-3 bg-red-50 rounded-lg">
+                                    <i class="fas fa-bomb text-red-500 mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800">黑天鹅事件</p>
+                                        <p class="text-gray-600 text-sm">关注公司治理、财务真实性</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Position Management -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        <i class="fas fa-sliders-h text-blue-500 mr-2"></i>仓位管理策略
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">牛市初期（当前阶段）</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-percentage text-blue-500 mr-3"></i>
+                                    <span>保持70-80%的仓位，留有现金应对回调</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-plus text-blue-500 mr-3"></i>
+                                    <span>对看好的标的采用分批建仓策略</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-stop-circle text-blue-500 mr-3"></i>
+                                    <span>设置5-10%的止损位，严格执行</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">牛市中期</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <i class="fas fa-arrow-up text-green-500 mr-3"></i>
+                                    <span>可将仓位提升至80-90%，把握主升浪</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <i class="fas fa-sync-alt text-green-500 mr-3"></i>
+                                    <span>根据市场表现动态调整仓位</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">牛市后期</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <i class="fas fa-arrow-down text-yellow-500 mr-3"></i>
+                                    <span>逐步降低仓位至50%以下</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <i class="fas fa-coins text-yellow-500 mr-3"></i>
+                                    <span>增加现金储备，等待下一次机会</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bull Market End Signals -->
+            <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">牛市结束信号识别</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-arrow-down text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">高位暴跌</p>
+                            <p class="text-gray-600 text-sm">连续的大阴线，市场可能转熊</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-users text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">机构资金离场</p>
+                            <p class="text-gray-600 text-sm">专业机构在高位大量派发筹码</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-chart-line text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">主线板块下跌</p>
+                            <p class="text-gray-600 text-sm">市场主线率先下跌，其他板块补涨</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-percentage text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">估值过高</p>
+                            <p class="text-gray-600 text-sm">市场整体估值明显高于历史平均</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-file-alt text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">新股发行加速</p>
+                            <p class="text-gray-600 text-sm">大量新股发行抽走市场流动资金</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-xl">
+                        <i class="fas fa-fire text-2xl text-red-500 mr-4 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">市场情绪过热</p>
+                            <p class="text-gray-600 text-sm">满大街都是"股神"，市场极度乐观</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Advice -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
+                <i class="fas fa-cogs text-primary mr-3"></i>实战操作建议
+            </h2>
+
+            <!-- Stock Selection Process -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 mb-12 border border-blue-100">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">选股步骤与流程</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+                        <h4 class="font-bold text-gray-800 mb-2">确定投资目标</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 明确风险承受能力</li>
+                            <li>• 确定投资期限</li>
+                            <li>• 设定合理收益目标</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+                        <h4 class="font-bold text-gray-800 mb-2">行业选择</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 关注政策支持行业</li>
+                            <li>• 选择上升期行业</li>
+                            <li>• 优先估值合理行业</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+                        <h4 class="font-bold text-gray-800 mb-2">个股筛选</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 基本面分析</li>
+                            <li>• 技术面分析</li>
+                            <li>• 估值分析</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-orange-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">4</div>
+                        <h4 class="font-bold text-gray-800 mb-2">组合构建</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 分散投资</li>
+                            <li>• 合理行业配置</li>
+                            <li>• 定期调仓</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trading Tips -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Buy Timing -->
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-green-100">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-arrow-up text-green-500 mr-2"></i>买入时机
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">回调买入</p>
+                                <p class="text-gray-600 text-sm">利用市场回调机会，在支撑位附近买入</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">突破买入</p>
+                                <p class="text-gray-600 text-sm">在股价突破重要阻力位时买入</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">缩量买入</p>
+                                <p class="text-gray-600 text-sm">在股价缩量回调至重要支撑位时买入</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sell Timing -->
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-red-100">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-arrow-down text-red-500 mr-2"></i>卖出时机
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">目标价卖出</p>
+                                <p class="text-gray-600 text-sm">达到预设目标价时，可考虑卖出</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">破位卖出</p>
+                                <p class="text-gray-600 text-sm">股价跌破重要支撑位时，及时止损</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-red-500 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">分批卖出</p>
+                                <p class="text-gray-600 text-sm">对盈利丰厚的标的，采用分批卖出策略</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Common Mistakes -->
+            <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 border border-red-100">
+                <h3 class="text-2xl font-bold mb-8 text-gray-800 text-center">常见错误避免</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">追涨杀跌</p>
+                            <p class="text-gray-600 text-sm">不要盲目追高涨幅过大的股票</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">过度交易</p>
+                            <p class="text-gray-600 text-sm">频繁买卖会增加交易成本</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">集中投资</p>
+                            <p class="text-gray-600 text-sm">不要将所有资金集中在少数股票</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">听信谣言</p>
+                            <p class="text-gray-600 text-sm">不要盲目相信市场传言</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">情绪化操作</p>
+                            <p class="text-gray-600 text-sm">投资应保持理性，避免被情绪左右</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-white rounded-xl shadow-sm">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-medium text-gray-800">忽视风险</p>
+                            <p class="text-gray-600 text-sm">牛市中也要重视风险控制</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-flag-checkered text-secondary mr-3"></i>结论与展望
+                </h2>
+                <div class="prose prose-lg prose-invert max-w-none">
+                    <p class="mb-4">
+                        当前A股正处于新一轮牛市行情中，科技+红利双主线并行。投资者应采用"核心+卫星"配置策略，重点关注AI、半导体、机器人等科技成长领域，以及高股息红利股。
+                    </p>
+                    <p class="mb-4">
+                        牛市投资成功的关键在于：把握行业轮动规律，精选优质个股，合理控制仓位，及时识别牛市结束信号。同时，要避免追涨杀跌、过度交易等常见错误，保持理性投资心态。
+                    </p>
+                    <p>
+                        最后，投资有风险，入市需谨慎。本报告仅供参考，不构成投资建议，请投资者根据自身情况做出投资决策。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <p class="text-gray-400 mb-2">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    2025年A股牛市赚钱策略指南
+                </p>
+                <p class="text-gray-500 text-sm">
+                    报告生成时间：2025年9月29日 | 投资有风险，入市需谨慎
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Rotation Chart
+            const rotationCtx = document.getElementById('rotationChart').getContext('2d');
+            new Chart(rotationCtx, {
+                type: 'line',
+                data: {
+                    labels: ['第一阶段', '第二阶段', '第三阶段', '第四阶段', '第五阶段'],
+                    datasets: [
+                        {
+                            label: '金融板块',
+                            data: [90, 60, 40, 50, 30],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: '周期板块',
+                            data: [60, 90, 60, 40, 50],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: '科技板块',
+                            data: [40, 60, 90, 70, 60],
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: '消费板块',
+                            data: [30, 40, 60, 90, 70],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: '小盘股',
+                            data: [50, 50, 70, 80, 90],
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Add smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            document.querySelectorAll('.card-hover, section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
