@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import tushare as ts
 from dotenv import load_dotenv
+from typing import Optional
 
 load_dotenv()
 pro = ts.pro_api(os.getenv("TUSHARE_TOKEN"))
@@ -12,10 +13,10 @@ def stock_basic(list_status: str = "L", exchange: str = "") -> pd.DataFrame:
 
 
 def daily(
-    ts_code: str | None = None,
-    trade_date: str | None = None,
-    start_date: str | None = None,
-    end_date: str | None = None,
+    ts_code: Optional[str] = None,
+    trade_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
 ) -> pd.DataFrame:
 
     def _last_open_date(end_yyyymmdd: str) -> str:
