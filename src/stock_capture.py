@@ -273,10 +273,12 @@ class ScreenshotManager:
             return False
 
 
-def capture_stock_workflow(stock_code: str, app_name: str = DEFAULT_APP_NAME):
+def capture_stock_workflow(stock_code: str,
+                           app_name: str = DEFAULT_APP_NAME) -> Optional[str]:
     """
     主流程：激活应用 -> 输入代码 -> 截图 -> 隐藏应用
     Main workflow: Activate -> Input Code -> Screenshot -> Hide
+    Returns: filepath if successful, None otherwise
     """
     app = StockAppController(app_name)
     screenshot_mgr = ScreenshotManager()
@@ -284,7 +286,7 @@ def capture_stock_workflow(stock_code: str, app_name: str = DEFAULT_APP_NAME):
     # 1. Activate App
     if not app.activate():
         print(f"❌ 无法激活应用: {app_name}，请确认应用已启动。")
-        return
+        return None
 
     if not app.wait_until_frontmost():
         print(f"⚠️ 警告: {app_name} 可能未置顶，后续操作可能失败。")
@@ -292,7 +294,7 @@ def capture_stock_workflow(stock_code: str, app_name: str = DEFAULT_APP_NAME):
     # 2. Input Stock Code
     if not app.send_keystrokes(stock_code):
         print("❌ 股票代码输入失败，终止流程")
-        return
+        return None
 
     # Wait for chart to load
     time.sleep(WAIT_FOR_CHART_LOAD_SEC)
@@ -300,14 +302,24 @@ def capture_stock_workflow(stock_code: str, app_name: str = DEFAULT_APP_NAME):
     # 3. Take Screenshot
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{stock_code}_{timestamp}.png"
-    screenshot_mgr.take(filename, app)
+    if screenshot_mgr.take(filename, app):
+        filepath = os.path.join(screenshot_mgr.save_dir, filename)
+        # 4. Hide App
+        app.hide()
+        return filepath
 
-    # 4. Hide App
-    app.hide()
+    return None
 
 
 if __name__ == "__main__":
-    code = None  # input("请输入股票代码 (例如 000001): ").strip()
-    if not code:
-        code = "000001"
-    capture_stock_workflow(code)
+    import sys
+    if len(sys.argv) > 1:
+        code = sys.argv[1]
+    else:
+        code = "603259"
+
+    path = capture_stock_workflow(code)
+    if path:
+        print(f"SCREENSHOT_SAVED: {path}")
+    else:
+        sys.exit(1)
