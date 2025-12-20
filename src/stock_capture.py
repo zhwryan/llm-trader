@@ -1,56 +1,31 @@
 import time
 import subprocess
 import os
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from datetime import datetime
-from pathlib import Path
-from typing import Optional, Tuple, Protocol
+from typing import Optional, Tuple
 
-# Configuration Constants
+# Constants
 DEFAULT_APP_NAME = "同花顺"
 DEFAULT_SAVE_DIR = "screenshots"
-DEFAULT_TIMEOUT_SEC = 3.0
-CHART_LOAD_DELAY_SEC = 2.0
-KEYSTROKE_DELAY_SEC = 0.2
-CHECK_INTERVAL_SEC = 0.5
+WAIT_FOR_APP_ACTIVATION_SEC = 3.0  # 等待应用激活的时间
+WAIT_FOR_CHART_LOAD_SEC = 1.5  # 等待股票图表加载完成的时间
+KEYSTROKE_DELAY_SEC = 0.2  # 按键延迟时间，防止操作过快
+CHECK_INTERVAL_SEC = 0.5  # 检查间隔时间
 
 
-class ApplicationError(Exception):
-    """Base exception for application related errors."""
-    pass
+class AppleScriptRunner:
+    """
+    AppleScript 执行器
+    Encapsulates AppleScript execution logic.
+    """
 
-
-class ActivationError(ApplicationError):
-    """Raised when application fails to activate."""
-    pass
-
-
-@dataclass
-class WindowRegion:
-    x: int
-    y: int
-    width: int
-    height: int
-
-    def to_screencapture_args(self) -> str:
-        return f"{self.x},{self.y},{self.width},{self.height}"
-
-
-class SystemInterface(Protocol):
-    """Abstraction for system-level interactions."""
-
-    def run_applescript(self, script: str) -> Optional[str]:
-        ...
-
-    def run_command(self, command: list[str]) -> None:
-        ...
-
-
-class MacSystem(SystemInterface):
-    """macOS specific system interactions."""
-
-    def run_applescript(self, script: str) -> Optional[str]:
+    @staticmethod
+    def run(script: str) -> Optional[str]:
+        """
+        执行 AppleScript 并返回结果
+        Execute AppleScript and return the result.
+        Returns None if execution fails.
+        """
         try:
             result = subprocess.run(["osascript", "-e", script],
                                     capture_output=True,
@@ -58,58 +33,37 @@ class MacSystem(SystemInterface):
                                     check=True)
             return result.stdout.strip()
         except subprocess.CalledProcessError:
+            # AppleScript execution error (e.g., object not found)
             return None
         except Exception as e:
             print(f"System error executing AppleScript: {e}")
             return None
 
-    def run_command(self, command: list[str]) -> None:
-        subprocess.run(command, check=True)
 
+class StockAppController:
+    """
+    股票应用控制器
+    Controls the stock trading application via AppleScript.
+    """
 
-class StockAppDriver(ABC):
-    """Abstract driver for stock trading applications."""
-
-    @abstractmethod
-    def activate(self) -> None:
-        ...
-
-    @abstractmethod
-    def navigate_to_stock(self, symbol: str) -> None:
-        ...
-
-    @abstractmethod
-    def hide(self) -> None:
-        ...
-
-    @abstractmethod
-    def get_window_id(self) -> Optional[int]:
-        ...
-
-    @abstractmethod
-    def get_window_region(self) -> Optional[WindowRegion]:
-        ...
-
-
-class TongHuaShunMacDriver(StockAppDriver):
-    """Driver for TongHuaShun (同花顺) on macOS."""
-
-    def __init__(self,
-                 system: SystemInterface,
-                 app_name: str = DEFAULT_APP_NAME):
-        self.system = system
+    def __init__(self, app_name: str = DEFAULT_APP_NAME):
         self.app_name = app_name
 
-    def activate(self) -> None:
-        print(f"Activating {self.app_name}...")
-        # Try 'open' command first
+    def activate(self) -> bool:
+        """
+        激活应用并置顶
+        Activates the application and brings it to front.
+        """
+        print(f"正在激活应用: {self.app_name}")
+
+        # 1. 尝试使用 open 命令 (处理最小化/虚拟桌面)
         try:
-            self.system.run_command(["open", "-a", self.app_name])
+            subprocess.run(["open", "-a", self.app_name], check=True)
             time.sleep(CHECK_INTERVAL_SEC)
         except Exception:
             pass
 
-        # Ensure frontmost via AppleScript
+        # 2. 使用 AppleScript 确保窗口获得焦点
         script = f'''
         tell application "System Events"
             if exists process "{self.app_name}" then
@@ -123,43 +77,59 @@ class TongHuaShunMacDriver(StockAppDriver):
             end if
         end tell
         '''
-        if self.system.run_applescript(script) != "ok":
-            raise ActivationError(f"Failed to activate {self.app_name}")
+        return AppleScriptRunner.run(script) == "ok"
 
-        self._wait_until_frontmost()
+    def hide(self):
+        """
+        隐藏应用
+        Hides the application.
+        """
+        print(f"正在隐藏应用: {self.app_name}")
+        script = f'tell application "System Events" to set visible of process "{self.app_name}" to false'
+        AppleScriptRunner.run(script)
 
-    def _wait_until_frontmost(self,
-                              timeout: float = DEFAULT_TIMEOUT_SEC) -> None:
-        start_time = time.time()
+    def is_frontmost(self) -> bool:
+        """
+        检查应用是否在前台
+        Checks if the application is currently frontmost.
+        """
         script = 'tell application "System Events" to get name of first application process whose frontmost is true'
+        return AppleScriptRunner.run(script) == self.app_name
 
+    def wait_until_frontmost(self,
+                             timeout: float = WAIT_FOR_APP_ACTIVATION_SEC
+                             ) -> bool:
+        """
+        等待应用直到置顶
+        Waits until the application is frontmost.
+        """
+        start_time = time.time()
         while time.time() - start_time < timeout:
-            res = self.system.run_applescript(script)
-            if res == self.app_name:
-                return
+            if self.is_frontmost():
+                return True
             time.sleep(CHECK_INTERVAL_SEC)
+        return False
 
-        print(f"Warning: {self.app_name} might not be frontmost.")
-
-    def navigate_to_stock(self, symbol: str) -> None:
-        print(f"Navigating to stock: {symbol}")
+    def send_keystrokes(self, text: str):
+        """
+        模拟键盘输入
+        Simulates keyboard input.
+        """
+        print(f"正在输入: {text}")
         script = f'''
         tell application "System Events"
-            keystroke "{symbol}"
+            keystroke "{text}"
             delay {KEYSTROKE_DELAY_SEC}
             key code 36 -- Enter
         end tell
         '''
-        self.system.run_applescript(script)
-        # Wait for chart to render
-        time.sleep(CHART_LOAD_DELAY_SEC)
-
-    def hide(self) -> None:
-        print(f"Hiding {self.app_name}...")
-        script = f'tell application "System Events" to set visible of process "{self.app_name}" to false'
-        self.system.run_applescript(script)
+        AppleScriptRunner.run(script)
 
     def get_window_id(self) -> Optional[int]:
+        """
+        获取主窗口 ID
+        Gets the main window ID.
+        """
         script = f'''
         tell application "System Events"
             tell process "{self.app_name}"
@@ -167,10 +137,14 @@ class TongHuaShunMacDriver(StockAppDriver):
             end tell
         end tell
         '''
-        res = self.system.run_applescript(script)
+        res = AppleScriptRunner.run(script)
         return int(res) if res and res.isdigit() else None
 
-    def get_window_region(self) -> Optional[WindowRegion]:
+    def get_window_region(self) -> Optional[Tuple[int, int, int, int]]:
+        """
+        获取主窗口区域 (x, y, w, h)
+        Gets the main window region.
+        """
         script = f'''
         tell application "System Events"
             tell process "{self.app_name}"
@@ -182,136 +156,108 @@ class TongHuaShunMacDriver(StockAppDriver):
             end tell
         end tell
         '''
-        res = self.system.run_applescript(script)
+        res = AppleScriptRunner.run(script)
         if res:
             try:
                 parts = [int(p.strip()) for p in res.split(',') if p.strip()]
                 if len(parts) == 4:
-                    return WindowRegion(*parts)
+                    return tuple(parts)
             except ValueError:
                 pass
         return None
 
 
-class ScreenCapturer:
-    """Handles screenshot logic with fallback strategies."""
+class ScreenshotManager:
+    """
+    截图管理器
+    Handles screenshot operations.
+    """
 
     def __init__(self, save_dir: str = DEFAULT_SAVE_DIR):
-        self.save_dir = Path(save_dir)
-        self.save_dir.mkdir(exist_ok=True)
+        self.save_dir = save_dir
+        if not os.path.exists(self.save_dir):
+            os.makedirs(self.save_dir, exist_ok=True)
 
-    def capture(self, filename: str, app: StockAppDriver) -> Path:
-        filepath = self.save_dir / filename
-        print(f"Capturing screenshot to: {filepath}")
+    def take(self, filename: str, app_controller: StockAppController) -> bool:
+        """
+        执行截图策略：Window ID -> 区域 -> 全屏
+        Takes a screenshot using the best available strategy.
+        Strategies: Window ID -> Region -> Fullscreen
+        """
+        filepath = os.path.join(self.save_dir, filename)
+        print(f"正在截图: {filepath}")
 
-        # Strategy 1: Window ID (Best for clean capture)
-        if wid := app.get_window_id():
-            if self._try_capture(["-l", str(wid)], filepath):
-                return filepath
+        # Strategy 1: Window ID
+        wid = app_controller.get_window_id()
+        if wid:
+            try:
+                subprocess.run(
+                    ["screencapture", "-l",
+                     str(wid), "-x", "-o", filepath],
+                    check=True)
+                print("✅ 截图成功 (Window ID模式)")
+                return True
+            except subprocess.CalledProcessError:
+                print("⚠️ Window ID 截图失败，尝试降级...")
 
-        # Strategy 2: Region (Good if ID fails)
-        if region := app.get_window_region():
-            if self._try_capture(["-R", region.to_screencapture_args()],
-                                 filepath):
-                return filepath
+        # Strategy 2: Region
+        region = app_controller.get_window_region()
+        if region:
+            try:
+                x, y, w, h = region
+                subprocess.run([
+                    "screencapture", "-R", f"{x},{y},{w},{h}", "-x", filepath
+                ],
+                               check=True)
+                print("✅ 截图成功 (区域模式)")
+                return True
+            except subprocess.CalledProcessError:
+                print("⚠️ 区域截图失败，尝试降级...")
 
-        # Strategy 3: Fullscreen (Fallback)
-        print("Fallback to fullscreen capture.")
-        self._try_capture([], filepath)
-        return filepath
-
-    def _try_capture(self, args: list[str], filepath: Path) -> bool:
-        cmd = ["screencapture"] + args + ["-x", str(filepath)]
+        # Strategy 3: Fullscreen
         try:
-            subprocess.run(cmd, check=True)
+            print("⚠️ 无法定位窗口，使用全屏截图兜底")
+            subprocess.run(["screencapture", "-x", filepath], check=True)
+            print("✅ 截图成功 (全屏模式)")
             return True
-        except subprocess.CalledProcessError:
+        except Exception as e:
+            print(f"❌ 截图完全失败: {e}")
             return False
 
 
-class ChartAnalyzer(ABC):
-    """Abstract base class for chart analysis."""
-
-    @abstractmethod
-    def analyze(self, image_path: Path) -> str:
-        ...
-
-
-class ChanTheoryAnalyzer(ChartAnalyzer):
+def capture_stock_workflow(stock_code: str, app_name: str = DEFAULT_APP_NAME):
     """
-    Analyzes chart using Chan Theory (缠论).
-    Note: Real implementation would require a VLM (Vision Language Model) API.
+    主流程：激活应用 -> 输入代码 -> 截图 -> 隐藏应用
+    Main workflow: Activate -> Input Code -> Screenshot -> Hide
     """
+    app = StockAppController(app_name)
+    screenshot_mgr = ScreenshotManager()
 
-    def analyze(self, image_path: Path) -> str:
-        # Simulation of an analysis result since we lack a real VLM in this environment
-        # In a production setting, this would call GPT-4o-Vision or similar.
-        return f"""
-        [Chan Theory Analysis for {image_path.name}]
-        ------------------------------------------------
-        1. Trend Definition:
-           - Current Level: Daily/60min consolidation.
-           - Direction: Neutral to Bullish.
-        
-        2. Structure (Morphology):
-           - Detected a 'Center' (ZhongShu) formation.
-           - Recent stroke suggests a Type 2 Buy Point (Second Buy).
-        
-        3. Divergence:
-           - MACD divergence observed on the latest bottom.
-           
-        4. Conclusion:
-           - Wait for confirmation of the upward stroke.
-           - Stop loss below the recent low.
-        ------------------------------------------------
-        (Note: This is a simulated analysis based on heuristic templates.)
-        """
+    # 1. Activate App
+    if not app.activate():
+        print(f"❌ 无法激活应用: {app_name}，请确认应用已启动。")
+        return
 
+    if not app.wait_until_frontmost():
+        print(f"⚠️ 警告: {app_name} 可能未置顶，后续操作可能失败。")
 
-class StockWorkflow:
-    """Orchestrates the stock capture and analysis workflow."""
+    # 2. Input Stock Code
+    app.send_keystrokes(stock_code)
 
-    def __init__(self, app_driver: StockAppDriver, capturer: ScreenCapturer,
-                 analyzer: ChartAnalyzer):
-        self.app = app_driver
-        self.capturer = capturer
-        self.analyzer = analyzer
+    # Wait for chart to load
+    time.sleep(WAIT_FOR_CHART_LOAD_SEC)
 
-    def run(self, symbol: str) -> None:
-        try:
-            # 1. Prepare App
-            self.app.activate()
+    # 3. Take Screenshot
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{stock_code}_{timestamp}.png"
+    screenshot_mgr.take(filename, app)
 
-            # 2. Navigate
-            self.app.navigate_to_stock(symbol)
-
-            # 3. Capture
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{symbol}_{timestamp}.png"
-            image_path = self.capturer.capture(filename, self.app)
-
-            # 4. Analyze
-            print(f"\nRunning analysis on {image_path.name}...")
-            analysis_result = self.analyzer.analyze(image_path)
-            print(analysis_result)
-
-        except ApplicationError as e:
-            print(f"Workflow failed: {e}")
-        finally:
-            self.app.hide()
+    # 4. Hide App
+    app.hide()
 
 
 if __name__ == "__main__":
-    # Dependency Injection
-    system = MacSystem()
-    driver = TongHuaShunMacDriver(system)
-    capturer = ScreenCapturer()
-    analyzer = ChanTheoryAnalyzer()
-
-    workflow = StockWorkflow(driver, capturer, analyzer)
-
-    # Execution for WuXi AppTec (603259)
-    # Or user input if needed
-    target_code = "603259"  # 药明康德
-    print(f"Starting workflow for {target_code} (药明康德)...")
-    workflow.run(target_code)
+    code = input("请输入股票代码 (例如 000001): ").strip()
+    if not code:
+        code = "000001"
+    capture_stock_workflow(code)
