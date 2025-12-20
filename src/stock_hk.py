@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ts.set_token(os.getenv("TS_TOKEN"))
+ts.set_token(os.getenv("TUSHARE_TOKEN"))
 pro = ts.pro_api()
 
 

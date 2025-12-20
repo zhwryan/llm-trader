@@ -4,7 +4,7 @@ import tushare as ts
 from dotenv import load_dotenv
 
 load_dotenv()
-pro = ts.pro_api(os.getenv("TS_TOKEN"))
+pro = ts.pro_api(os.getenv("TUSHARE_TOKEN"))
 
 
 def stock_basic(list_status: str = "L", exchange: str = "") -> pd.DataFrame:
