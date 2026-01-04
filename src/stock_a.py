@@ -25,14 +25,16 @@ def get_code_by_name(name: str) -> Optional[tuple[str, str]]:
         match = df[df['name'] == name]
         if not match.empty:
             return match.iloc[0]['ts_code'], match.iloc[0]['symbol']
-        
+
         # 模糊匹配
         match = df[df['name'].str.contains(name)]
         if not match.empty:
             # 返回第一个匹配项
-            print(f"找到多个匹配项，使用第一个: {match.iloc[0]['name']} ({match.iloc[0]['ts_code']})")
+            print(
+                f"找到多个匹配项，使用第一个: {match.iloc[0]['name']} ({match.iloc[0]['ts_code']})"
+            )
             return match.iloc[0]['ts_code'], match.iloc[0]['symbol']
-            
+
         print(f"未找到名称包含 '{name}' 的股票")
         return None
     except Exception as e:
@@ -60,15 +62,16 @@ def daily(
     if df.empty and trade_date:
         last = _last_open_date(trade_date)
         df = pro.daily(ts_code=ts_code, start_date=last, end_date=last)
-    
+
     # 确保所需列存在
     if df.empty:
         return df
 
     cols = [
-        c
-        for c in ["trade_date", "open", "close", "high", "low", "vol", "amount", "pct_chg"]
-        if c in df.columns
+        c for c in [
+            "trade_date", "open", "close", "high", "low", "vol", "amount",
+            "pct_chg"
+        ] if c in df.columns
     ]
     return df[cols].rename(columns={"vol": "volume", "amount": "money"})
 
@@ -82,7 +85,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     cmd = sys.argv[1]
-    
+
     if cmd == "search":
         if len(sys.argv) < 3:
             print("Please provide a stock name")
@@ -93,7 +96,7 @@ if __name__ == '__main__':
             print(f"FOUND: {result[0]} {result[1]}")
         else:
             sys.exit(1)
-            
+
     elif cmd == "data":
         if len(sys.argv) < 3:
             print("Please provide a stock code (ts_code)")
@@ -101,13 +104,12 @@ if __name__ == '__main__':
         code = sys.argv[2]
         end_date = datetime.now().strftime("%Y%m%d")
         start_date = (datetime.now() - timedelta(days=30)).strftime("%Y%m%d")
-        
+
         df = daily(ts_code=code, start_date=start_date, end_date=end_date)
         if not df.empty:
             print(df.to_string(index=False))
         else:
             print("No data found")
-            
+
     else:
         print(f"Unknown command: {cmd}")
-
